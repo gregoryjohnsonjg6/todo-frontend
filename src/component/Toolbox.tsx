@@ -29,7 +29,15 @@ const Toolbox: React.FC<ChildProps> = ({ search, setTodo, setSearch, api }) => {
                     size="large"
                     allowClear
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={(e: { target: { value: any; }; }) => setValue(e.target.value)}
+                    onKeyDown={(e: { keyCode: number; }) => {
+                        if (e.keyCode == 13) {
+                            if (value !== ''){
+                                creatOne(value);
+                                setValue("")
+                            }
+                        }
+                    }}
                 />
                 <Button
                     size="large"
@@ -52,7 +60,7 @@ const Toolbox: React.FC<ChildProps> = ({ search, setTodo, setSearch, api }) => {
                 defaultValue={search.toString()}
                 value={value2}
                 allowClear
-                onChange={(e) => setValue2(e.target.value)}
+                onChange={(e: { target: { value: any; }; }) => setValue2(e.target.value)}
             />
         </Row>
     )

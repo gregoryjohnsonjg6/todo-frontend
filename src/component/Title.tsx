@@ -19,7 +19,7 @@ const Title: React.FC<TitleProps> = ({ clearAll }) => {
             <Button
                 type="link"
                 color="blue"
-                style={{ paddingRight: "10%" }}
+                style={{ paddingRight: "10%", position:'absolute', right:"1%" }}
                 onClick={clearAll}
             >
                 Delete all tasks

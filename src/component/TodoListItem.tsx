@@ -19,9 +19,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
     search
 }) => {
     return (
-        <Space direction="vertical" style={{ width: 350, padding: 20 }}>
-            <Divider>{todoType}</Divider>
-            <Space direction="vertical">
+        <Space direction="vertical" style={{ width: 350, padding: 20, textAlign: 'left' }}>
+            <Divider style={{ fontSize: '20px' }}>{todoType}</Divider>
+            <Space direction="vertical" style={{ paddingLeft: '10%' }}>
                 {item?.slice(0, limit || item.length).map((el, key) => {
                     return (
                         el.name.includes(search) ? (
@@ -29,6 +29,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
                                 checked={checked}
                                 key={key}
                                 onClick={() => handleClick(el._id, key)}
+                                style={{ fontSize: '20px' }}
                             >
                                 {el.name}
                             </Checkbox>
