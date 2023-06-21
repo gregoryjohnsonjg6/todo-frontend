@@ -8,9 +8,18 @@ interface ChildProps {
     done: string[]
     setDone: React.Dispatch<React.SetStateAction<string[]>>
 }
-const TodoList: React.FC<ChildProps> = ({ todo, done }) => {
-    const handleClick = (key: number) => {
-        console.log(key)
+const TodoList: React.FC<ChildProps> = ({ todo, done, setTodo, setDone }) => {
+    const handleClick1 = (key: number) => {
+        const _pop = todo.splice(key, 1)
+        done.push(_pop[0])
+        setTodo(todo)
+        setDone(done)
+    }
+    const handleClick2 = (key: number) => {
+        const _pop = done.splice(key, 1)
+        todo.push(_pop[0])
+        setTodo(todo.sort())
+        setDone(done)
     }
 
     return (
@@ -20,14 +29,14 @@ const TodoList: React.FC<ChildProps> = ({ todo, done }) => {
                     <TodoItem
                         todoType="To Do"
                         item={todo}
-                        handleClick={handleClick}
+                        handleClick={handleClick1}
                     />
                     <TodoItem
                         todoType="Done"
                         item={done}
                         limit={3}
                         checked
-                        handleClick={handleClick}
+                        handleClick={handleClick2}
                     />
                 </div>
             </Row>
