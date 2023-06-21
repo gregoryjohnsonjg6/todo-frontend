@@ -2,34 +2,32 @@ import React from "react"
 import { Row } from "antd"
 import TodoItem from "./TodoListItem"
 
-const TodoList: React.FC = () => {
+interface ChildProps {
+    todo: string[]
+    setTodo: React.Dispatch<React.SetStateAction<string[]>>
+    done: string[]
+    setDone: React.Dispatch<React.SetStateAction<string[]>>
+}
+const TodoList: React.FC<ChildProps> = ({ todo, done }) => {
+    const handleClick = (key: number) => {
+        console.log(key)
+    }
+
     return (
         <>
             <Row justify="space-around" style={{ padding: 20 }}>
                 <div style={{ display: "flex" }}>
                     <TodoItem
                         todoType="To Do"
-                        item={[
-                            "item 1",
-                            "item 2",
-                            "item 3",
-                            "item 4",
-                            "item 5",
-                            "item 6"
-                        ]}
+                        item={todo}
+                        handleClick={handleClick}
                     />
                     <TodoItem
                         todoType="Done"
-                        item={[
-                            "item 1",
-                            "item 2",
-                            "item 3",
-                            "item 4",
-                            "item 5",
-                            "item 6"
-                        ]}
+                        item={done}
                         limit={3}
                         checked
+                        handleClick={handleClick}
                     />
                 </div>
             </Row>
