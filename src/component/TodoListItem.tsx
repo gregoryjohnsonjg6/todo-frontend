@@ -3,10 +3,10 @@ import React from "react"
 
 interface TodoItemProps {
     todoType: string
-    item: string[]
+    item: any[]
     limit?: number
     checked?: boolean
-    handleClick: (e: number) => any
+    handleClick: (e1: String, e2: number) => any
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
@@ -25,9 +25,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
                         <Checkbox
                             checked={checked}
                             key={key}
-                            onClick={() => handleClick(key)}
+                            onClick={() => handleClick(el._id, key)}
                         >
-                            {el}
+                            {el.name}
                         </Checkbox>
                     )
                 })}

@@ -1,6 +1,8 @@
 import React from "react"
 import { Row } from "antd"
 import TodoItem from "./TodoListItem"
+import { API } from './../config';
+import axios from 'axios';
 
 interface ChildProps {
     todo: string[]
@@ -9,17 +11,30 @@ interface ChildProps {
     setDone: React.Dispatch<React.SetStateAction<string[]>>
 }
 const TodoList: React.FC<ChildProps> = ({ todo, done, setTodo, setDone }) => {
-    const handleClick1 = (key: number) => {
-        const _pop = todo.splice(key, 1)
-        done.push(_pop[0])
-        setTodo(todo)
-        setDone(done)
+
+    const updateOne = async (id: String) => {
+        await axios.get(`${API}/update/${id}`);
     }
-    const handleClick2 = (key: number) => {
-        const _pop = done.splice(key, 1)
-        todo.push(_pop[0])
-        setTodo(todo.sort())
-        setDone(done)
+
+    const handleClick1 = (id: String, key: number) => {
+        updateOne(id);
+        const _pop = todo.splice(key, 1);
+        setTodo(todo)
+        setDone([...done, _pop[0]]);
+    }
+    const handleClick2 = async (id: String, key: number) => {
+        updateOne(id);
+        const _pop = done.splice(key, 1);
+        const arr = [...todo, _pop[0]];
+        await axios.get(`${API}/getAll`)
+        .then(response => {
+            setTodo(response.data.data.data);
+        });
+        await axios.get(`${API}/getAll`)
+        .then(response => {
+            setTodo(response.data.data.data);
+        });
+        setDone(done);
     }
 
     return (
