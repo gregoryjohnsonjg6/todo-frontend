@@ -9,8 +9,9 @@ interface ChildProps {
     setTodo: React.Dispatch<React.SetStateAction<string[]>>
     done: string[]
     setDone: React.Dispatch<React.SetStateAction<string[]>>
+    search: string
 }
-const TodoList: React.FC<ChildProps> = ({ todo, done, setTodo, setDone }) => {
+const TodoList: React.FC<ChildProps> = ({ todo, done, setTodo, setDone, search }) => {
 
     const updateOne = async (id: String) => {
         await axios.get(`${API}/update/${id}`);
@@ -45,13 +46,15 @@ const TodoList: React.FC<ChildProps> = ({ todo, done, setTodo, setDone }) => {
                         todoType="To Do"
                         item={todo}
                         handleClick={handleClick1}
+                        search={search}
                     />
                     <TodoItem
                         todoType="Done"
                         item={done}
-                        limit={3}
+                        limit={10}
                         checked
                         handleClick={handleClick2}
+                        search={search}
                     />
                 </div>
             </Row>

@@ -9,6 +9,8 @@ import { API } from './config.js';
 const App: React.FC = () => {
     const [todo, setTodo] = useState<any[]>([])
     const [done, setDone] = useState<any[]>([])
+    const [search, setSearch] = useState("")
+    const [ex, setEx] = useState(true)
 
     const fetchData = async () => {
         await axios.get(`${API}/getAll`)
@@ -34,12 +36,19 @@ const App: React.FC = () => {
     return (
         <div className="App">
             <Title clearAll={clearAll} />
-            <Toolbox setTodo={setTodo} api={API} />
+            <Toolbox setTodo={setTodo} api={API} search={search} setSearch={setSearch} />
             <TodoList
                 todo={todo}
                 done={done}
-                setDone={setDone}
-                setTodo={setTodo}
+                setDone={(e) => {
+                    setDone(e)
+                    setEx(!ex)
+                }}
+                setTodo={(e) => {
+                    setTodo(e)
+                    setEx(!ex)
+                }}
+                search={search}
             />
         </div>
     )

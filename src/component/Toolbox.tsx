@@ -4,15 +4,17 @@ import axios from 'axios';
 
 const { Search } = Input
 interface ChildProps {
+    search: String,
     setTodo: React.Dispatch<React.SetStateAction<string[]>>,
+    setSearch: React.Dispatch<React.SetStateAction<string>>,
     api: String
 }
-const Toolbox: React.FC<ChildProps> = ({ setTodo, api }) => {
-    const onSearch = (value: string) => console.log(value)
+const Toolbox: React.FC<ChildProps> = ({ search, setTodo, setSearch, api }) => {
+    const onSearch = (value: string) => setSearch(value)
     const [value, setValue] = useState("")
+    const [value2, setValue2] = useState("")
 
     const creatOne = async (value: String) => {
-        console.log(value);
         await axios.post(`${api}/create`, {
             name: value
         }).then(response => {
@@ -47,6 +49,10 @@ const Toolbox: React.FC<ChildProps> = ({ setTodo, api }) => {
                 onSearch={onSearch}
                 enterButton
                 style={{ width: 304 }}
+                defaultValue={search.toString()}
+                value={value2}
+                allowClear
+                onChange={(e) => setValue2(e.target.value)}
             />
         </Row>
     )
